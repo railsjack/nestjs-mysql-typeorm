@@ -1,7 +1,9 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {BaseEntity, Column, Entity, PrimaryGeneratedColumn, Table} from 'typeorm';
 import { IsString, Max, MaxLength, Min, MinLength } from 'class-validator';
 
-@Entity()
+@Entity({
+  name: 'test'
+})
 export class Note extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -16,4 +18,10 @@ export class Note extends BaseEntity {
   @MinLength(1)
   @IsString()
   description: string;
+
+  @Column()
+  startDate: Date;
+
+  @Column()
+  endDate: Date;
 }

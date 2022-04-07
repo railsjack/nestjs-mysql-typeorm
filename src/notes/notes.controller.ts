@@ -8,6 +8,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { ParseIntPipe } from '@nestjs/common/pipes/parse-int.pipe';
+import { DefaultValuePipe } from '@nestjs/common/pipes/default-value.pipe';
 import { Note } from './note.entity';
 import { NotesService } from './notes.service';
 
@@ -23,6 +24,14 @@ export class NotesController {
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id) {
     return this.notesService.findOne(id);
+  }
+
+  @Get(':startDate/:endDate')
+  findOverlapped(
+    @Param('startDate') startDate: string,
+    @Param('endDate') endDate: string,
+    ) {
+    return this.notesService.findOverlapped(startDate, endDate);
   }
 
   @Post() create(@Body() note: Note) {
